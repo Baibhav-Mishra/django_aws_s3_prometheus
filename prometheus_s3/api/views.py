@@ -25,6 +25,6 @@ def create(request):
     url = request.GET.get("url", None)
     date = request.GET.get("date", None)
     download(url, date)
-    return Response("hello")
+    return Response("")
     
 

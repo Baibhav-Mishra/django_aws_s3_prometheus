@@ -2,7 +2,9 @@ import boto3
 from botocore.client import Config
 import os
 import cred
-# Configure boto3 to use LocalStack
+from multiprocessing import Pool
+from functools import partial
+
 s3 = boto3.client(
     's3',
     endpoint_url= cred.endpoint_url,
@@ -10,9 +12,14 @@ s3 = boto3.client(
     aws_secret_access_key=cred.aws_secret_access_key,
     region_name=cred.region_name,
 )
+def download_files_in_parallel(response):
+    partial_worker = partial(download_folder_from_s3, re)
+    with Pool(processes=os.cpu_count()) as pool:
+        pool.map(download_folder_from_s3, response)
+
 
 def download_folder_from_s3(bucket_name: str, s3_folder: str, local_folder: str):
-    
+
     # Ensure the local folder exists
     if not os.path.exists(local_folder):
         os.makedirs(local_folder)
