@@ -1,16 +1,16 @@
 import boto3
 from botocore.client import Config
 import os
-import cred
+from .cred import *
 from multiprocessing import Pool
 from functools import partial
 
 s3 = boto3.client(
     's3',
-    endpoint_url= cred.endpoint_url,
-    aws_access_key_id=cred.aws_access_key_id,
-    aws_secret_access_key=cred.aws_secret_access_key,
-    region_name=cred.region_name,
+    endpoint_url= endpoint_url,
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key,
+    region_name=region_name,
 )
 def download_files_in_parallel(response):
     partial_worker = partial(download_folder_from_s3, re)

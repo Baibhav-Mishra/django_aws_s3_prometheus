@@ -2,16 +2,16 @@ import boto3
 import os
 from multiprocessing import Pool
 from functools import partial
-import cred
+from .cred import *
 s3_client = boto3.client(
     's3',
-    endpoint_url= cred.endpoint_url,
-    aws_access_key_id=cred.aws_access_key_id,
-    aws_secret_access_key=cred.aws_secret_access_key,
-    region_name=cred.region_name,
+    endpoint_url= endpoint_url,
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key,
+    region_name=region_name,
 )
 
-bucket_name =  cred.bucket
+bucket_name = bucket
 
 def upload_file(file_path, s3_path, start_dir):
     """
