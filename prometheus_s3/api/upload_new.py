@@ -28,13 +28,13 @@ def upload_file(file_path, s3_path, start_dir):
         print(f"Error uploading {file_name}: {e}")
 
 
-def upload_files_in_parallel(file_paths, s3_path, start_dir):
-    """
-    Function to upload files to S3 in parallel using multiprocessing
-    """
-    partial_worker = partial(upload_file, s3_path=s3_path, start_dir=start_dir)
-    with Pool(processes=os.cpu_count()) as pool:
-        pool.map(partial_worker, file_paths)
+# def upload_files_in_parallel(file_paths, s3_path, start_dir):
+#     """
+#     Function to upload files to S3 in parallel using multiprocessing
+#     """
+#     partial_worker = partial(upload_file, s3_path=s3_path, start_dir=start_dir)
+#     with Pool(processes=os.cpu_count()) as pool:
+#         pool.map(partial_worker, file_paths)
 
 
 def get_all_files(directory):
@@ -52,7 +52,7 @@ def upload(name, s3_path):
     s3_client.create_bucket(Bucket=bucket_name)
     dir = f'/home/baibhav/Downloads/prometheus_new/prometheus-2.52.0.linux-amd64/data/snapshots/{name}'
     files_to_upload = get_all_files(dir)
-    upload_files_in_parallel(files_to_upload, s3_path, dir)
+    upload_file(files_to_upload, s3_path, dir)
 
 
 # upload('20240708T085149Z-27b79b8f04946159','localhost:9090/20240708T085149Z-27b79b8f04946159')
