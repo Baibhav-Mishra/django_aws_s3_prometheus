@@ -1,4 +1,4 @@
-# Django Aws S3 plugin
+# Django AWS S3 API
 
 ## Configure cred.py
 ```prometheus_s3/api/cred.py```
